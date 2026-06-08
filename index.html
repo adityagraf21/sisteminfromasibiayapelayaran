@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistem Informasi Tarif Pelayaran</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#f4f6f9;
+}
+
+header{
+    background:#005792;
+    color:white;
+    padding:20px;
+    text-align:center;
+}
+
+nav{
+    background:#003f6b;
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    padding:15px 20px;
+}
+
+nav a:hover{
+    background:#005792;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:20px;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    margin-bottom:20px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+
+h2{
+    margin-bottom:15px;
+    color:#005792;
+}
+
+input, select{
+    width:100%;
+    padding:10px;
+    margin:8px 0;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+button{
+    background:#005792;
+    color:white;
+    border:none;
+    padding:10px 20px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#00446e;
+}
+
+.result{
+    margin-top:15px;
+    padding:15px;
+    background:#eaf4ff;
+    border-radius:5px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+table th, table td{
+    border:1px solid #ddd;
+    padding:10px;
+    text-align:center;
+}
+
+table th{
+    background:#005792;
+    color:white;
+}
+
+footer{
+    background:#003f6b;
+    color:white;
+    text-align:center;
+    padding:15px;
+}
+
+@media(max-width:768px){
+    nav{
+        flex-direction:column;
+    }
+
+    table{
+        font-size:12px;
+    }
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>SISTEM INFORMASI TARIF PELAYARAN</h1>
+    <p>Responsive Web Design</p>
+</header>
+
+<nav>
+    <a href="#tarif">Tarif</a>
+    <a href="#jadwal">Jadwal Kapal</a>
+    <a href="#tracking">Tracking</a>
+    <a href="#kontak">Kontak</a>
+</nav>
+
+<div class="container">
+
+    <!-- Tarif -->
+    <div class="card" id="tarif">
+        <h2>Cek Tarif Pelayaran</h2>
+
+        <label>Pelabuhan Asal</label>
+        <select id="asal">
+            <option>Surabaya</option>
+            <option>Jakarta</option>
+            <option>Makassar</option>
+        </select>
+
+        <label>Pelabuhan Tujuan</label>
+        <select id="tujuan">
+            <option>Jakarta</option>
+            <option>Makassar</option>
+            <option>Balikpapan</option>
+        </select>
+
+        <label>Berat Muatan (Kg)</label>
+        <input type="number" id="berat">
+
+        <button onclick="hitungTarif()">Hitung Tarif</button>
+
+        <div class="result" id="hasilTarif">
+            Tarif akan muncul di sini.
+        </div>
+    </div>
+
+    <!-- Jadwal -->
+    <div class="card" id="jadwal">
+        <h2>Jadwal Kapal</h2>
+
+        <table>
+            <tr>
+                <th>Nama Kapal</th>
+                <th>Asal</th>
+                <th>Tujuan</th>
+                <th>Keberangkatan</th>
+            </tr>
+
+            <tr>
+                <td>KM Nusantara 01</td>
+                <td>Surabaya</td>
+                <td>Jakarta</td>
+                <td>10 Juni 2026</td>
+            </tr>
+
+            <tr>
+                <td>KM Samudera Jaya</td>
+                <td>Jakarta</td>
+                <td>Makassar</td>
+                <td>12 Juni 2026</td>
+            </tr>
+
+            <tr>
+                <td>KM Bahari Express</td>
+                <td>Surabaya</td>
+                <td>Balikpapan</td>
+                <td>15 Juni 2026</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Tracking -->
+    <div class="card" id="tracking">
+        <h2>Tracking Pengiriman</h2>
+
+        <input type="text" id="resi" placeholder="Masukkan Nomor Resi">
+
+        <button onclick="cekTracking()">Lacak</button>
+
+        <div class="result" id="hasilTracking">
+            Status pengiriman akan tampil di sini.
+        </div>
+    </div>
+
+    <!-- Kontak -->
+    <div class="card" id="kontak">
+        <h2>Kontak Pelanggan</h2>
+
+        <p>Email : cs@pelayaran.com</p>
+        <p>Telepon : 0812-3456-7890</p>
+        <p>Alamat : Surabaya, Jawa Timur</p>
+    </div>
+
+</div>
+
+<footer>
+    © 2026 Sistem Informasi Tarif Pelayaran
+</footer>
+
+<script>
+
+function hitungTarif(){
+
+    let berat = document.getElementById("berat").value;
+
+    if(berat === ""){
+        alert("Masukkan berat muatan");
+        return;
+    }
+
+    let tarifPerKg = 2500;
+    let total = berat * tarifPerKg;
+
+    document.getElementById("hasilTarif").innerHTML =
+        "<h3>Total Tarif</h3>" +
+        "<p>Rp " + total.toLocaleString('id-ID') + "</p>";
+}
+
+function cekTracking(){
+
+    let resi = document.getElementById("resi").value;
+
+    if(resi === ""){
+        alert("Masukkan nomor resi");
+        return;
+    }
+
+    document.getElementById("hasilTracking").innerHTML =
+    "<b>Status:</b> Dalam Perjalanan menuju Pelabuhan Tujuan";
+}
+
+</script>
+
+</body>
+</html>
